@@ -1,5 +1,5 @@
 from rest_framework import filters, mixins, permissions, viewsets 
-from .models import Titles, Genres, Categories
+from reviews.models import Titles, Genres, Categories
 from .serializers import TitlesSerializer, CategoriesSerializer, GenresSerializer
 
 
