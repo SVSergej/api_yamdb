@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Users(AbstractUser):
+class User(AbstractUser):
     ROLE_CHOICES = (
         ('U', 'user'),
         ('M', 'moderator'),
@@ -68,7 +68,7 @@ class Review(models.Model):
     )
     text = models.TextField()
     author = models.ForeignKey(
-        Users,
+        User,
         on_delete=models.CASCADE,
         related_name='author_review',
     )
@@ -87,7 +87,7 @@ class Comments(models.Model):
     )
     text = models.TextField()
     author = models.ForeignKey(
-        Users,
+        User,
         on_delete=models.CASCADE,
         related_name='author_comment'
     )
