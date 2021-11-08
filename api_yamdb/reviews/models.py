@@ -59,6 +59,7 @@ class Titles(models.Model):
 #    def __str__(self):
 #        return f'{self.genre} {self.title}'
 
+
 class Review(models.Model):
     title = models.ForeignKey(
         Titles,
@@ -94,3 +95,4 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.text
+
