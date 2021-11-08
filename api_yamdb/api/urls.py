@@ -16,6 +16,9 @@ router_v1 = DefaultRouter()
 #     basename='comment'
 # )
 # router_v1.register('api/v1/auth/signup', SignUpViewSet)
+# router.register('titles', TitleViewSet, basename='titles')
+# router.register('genres', GenreViewSet, basename='genres')
+# router.register('categories', CategoryViewSet, basename='categories')
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
