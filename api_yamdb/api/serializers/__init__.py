@@ -1,13 +1,17 @@
 from .review import ReviewSerializer
 from .comment import CommentSerializer
-from .genres import GenresSerializer
-from .titles import TitlesSerializer
-from .categories import CategoriesSerializer
+from .genre import GenreSerializer
+from .title import TitlesSerializer
+from .category import CategorySerializer
+from .input import InputSerializer
+from .output import OutputSerializer
 
 __all__ = [
-    "GenresSerializer",
+    "GenreSerializer",
     "TitlesSerializer",
-    "CategoriesSerializer",
+    "CategorySerializer",
+    "InputSerializer",
+    "OutputSerializer",
     "ReviewSerializer",
     "CommentSerializer",
 ]

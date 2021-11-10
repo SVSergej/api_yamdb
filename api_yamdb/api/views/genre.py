@@ -1,9 +1,14 @@
 from rest_framework import viewsets
-from api_yamdb.reviews.models import Genres
-from ..serializers.genres import GenresSerializer
+from rest_framework.pagination import LimitOffsetPagination
+
+from api_yamdb.reviews.models import Genre
+from ..serializers.genre import GenreSerializer
 
 
 class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    pagination_class = LimitOffsetPagination
+    serializer_class = GenreSerializer
 
-    queryset = Genres.objects.all()
-    serializer_class = GenresSerializer
+
+
