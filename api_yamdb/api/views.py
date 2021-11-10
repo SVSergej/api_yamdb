@@ -1,33 +1,30 @@
-
-# from ..reviews.models import Users
-# from .serializers import UsersSerializer
-#
-#
-# class SignUpViewSet(viewsets.ModelViewSet):
-#     queryset = Users.objects.all()
-#     serializer_class = UsersSerializer
-#
+from rest_framework import filters, mixins, viewsets
+from reviews.models import Titles, Genre, Category
+from .serializers import TitlesSerializer, CategorySerializer, GenreSerializer, InputSerializer, OutputSerializer
+from .permissions import AdminOrReadOnly
+from rest_framework.pagination import LimitOffsetPagination
 
 
+class TitleViewSet(viewsets.ModelViewSet):
+    queryset = Titles.objects.all()
+    serializer_class = TitlesSerializer
+    pagination_class = LimitOffsetPagination
+    # permission_classes = (AdminOrReadOnly,)
 
-# from rest_framework import filters, mixins, permissions, viewsets
-# from reviews.models import Titles, Genres, Categories
-# from .serializers import TitlesSerializer, CategoriesSerializer, GenresSerializer
-#
-#
-# class TitleViewSet(viewsets.ModelViewSet):
-#
-#     queryset = Titles.objects.all()
-#     serializer_class = TitlesSerializer
-#
-#
-# class CategoryViewSet(viewsets.ModelViewSet):
-#
-#     queryset = Categories.objects.all()
-#     serializer_class = CategoriesSerializer
-#
-#
-# class GenreViewSet(viewsets.ModelViewSet):
-#
-#     queryset = Genres.objects.all()
-#     serializer_class = GenresSerializer
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return InputSerializer
+
+        return OutputSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    pagination_class = LimitOffsetPagination
+    serializer_class = CategorySerializer
+
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    pagination_class = LimitOffsetPagination
+    serializer_class = GenreSerializer
