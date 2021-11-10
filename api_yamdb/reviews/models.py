@@ -60,15 +60,15 @@ class Review(models.Model):
     title = models.ForeignKey(
         Titles,
         on_delete=models.CASCADE,
-        related_name='title_review',
+        related_name='titles_reviews',
     )
     text = models.TextField()
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='author_review',
+        related_name='authors_reviews',
     )
-    score = models.SmallIntegerField()
+    score = models.PositiveSmallIntegerField()
     pub_date = models.DateField('date published', auto_now_add=True)
 
     def __str__(self):
@@ -79,13 +79,13 @@ class Comments(models.Model):
     review = models.ForeignKey(
         Review,
         on_delete=models.CASCADE,
-        related_name='review_comment',
+        related_name='reviews_comments',
     )
     text = models.TextField()
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='author_comment'
+        related_name='authors_comments'
     )
     pub_date = models.DateField('date published', auto_now_add=True)
 
