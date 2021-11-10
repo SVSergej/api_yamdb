@@ -1,29 +1,27 @@
 from rest_framework import serializers
-from reviews.models import Categories, Genres, Titles, Genre_Title
-from users.models import User
+from reviews.models import Category, Genre, Titles, Genre_Title
 import datetime as dt
-from django.core.mail import send_mail
 
 
-class CategoriesSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     titles = serializers.StringRelatedField(read_only=True, many=True)
 
     class Meta:
 
-        model = Categories
-        fields = ('id','name','slug','titles')
+        model = Category
+        fields = ('id','name','slug')
 
 
-class GenresSerializer(serializers.ModelSerializer):
+class GenreSerializer(serializers.ModelSerializer):
     titles = serializers.StringRelatedField(read_only=True, many=True)
     class Meta:
 
-        model = Genres
-        fields = ('id','name', 'slug', 'titles')
+        model = Genre
+        fields = ('id','name', 'slug')
 
 
 class TitlesSerializer(serializers.ModelSerializer):
-    genre = GenresSerializer(many=True)
+    genre = GenreSerializer(many=True)
 
     class Meta:
 
@@ -37,7 +35,7 @@ class TitlesSerializer(serializers.ModelSerializer):
 
         for genre in genres:
 
-            current_genre, status = Genres.objects.get_or_create(
+            current_genre, status = Genre.objects.get_or_create(
                 **genre)
 
             Genre_Title.objects.create(
@@ -49,21 +47,3 @@ class TitlesSerializer(serializers.ModelSerializer):
         if value > year:
             raise serializers.ValidationError('Проверьте год!')
         return value
-
-class UserSerializer(serializers.ModelSerializer):
-
-    password = serializers.CharField(write_only=True)
-
-    def create(self, validated_data):
-
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-        )
-
-        return user
-
-    class Meta:
-        model = User
-        # Tuple of serialized model fields (see link [2])
-        fields = ( "id", "username", "password", )

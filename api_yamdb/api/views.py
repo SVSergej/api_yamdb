@@ -1,9 +1,7 @@
 from rest_framework import filters, mixins, permissions, viewsets 
-from reviews.models import Titles, Genres, Categories
-from .serializers import TitlesSerializer, CategoriesSerializer, GenresSerializer, UserSerializer
+from reviews.models import Titles, Genre, Category
+from .serializers import TitlesSerializer, CategorySerializer, GenreSerializer
 from .permissions import AdminOrReadOnly
-from users.models import User
-from rest_framework.generics import CreateAPIView
 
 
 class TitleViewSet(viewsets.ModelViewSet):
@@ -15,19 +13,11 @@ class TitleViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
 
-    queryset = Categories.objects.all()
-    serializer_class = CategoriesSerializer
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class GenreViewSet(viewsets.ModelViewSet):
 
-    queryset = Genres.objects.all()
-    serializer_class = GenresSerializer
-
-class CreateUserView(CreateAPIView):
-
-    model = User
-    permission_classes = [
-        AdminOrReadOnly,
-    ]
-    serializer_class = UserSerializer
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
