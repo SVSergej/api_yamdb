@@ -22,42 +22,38 @@ class User(AbstractUser):
 
 
 class Categories(models.Model):
-
     name = models.CharField(max_length=256)
+    slug = models.SlugField()
 
     def __str__(self):
-
-        return self.name
+        return self.slug
 
 
 class Genres(models.Model):
-
     name = models.CharField(max_length=256)
+    slug = models.SlugField()
 
     def __str__(self):
-
-        return self.name
+        return self.slug
 
 
 class Titles(models.Model):
-
     name = models.CharField(max_length=200)
     year = models.IntegerField()
     description = models.CharField(max_length=200)
-    genre = models.ForeignKey(Genres, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True)
+    genre = models.ManyToManyField(Genres, through="GenreTitle", related_name='titles')
+    category = models.ForeignKey(Categories, on_delete=models.SET_NULL, null=True, related_name='titles')
 
     def __str__(self):
-
         return self.name
 
 
-#  class GenresTitles(models.Model):
-#    genre = models.ForeignKey(Genres, on_delete=models.SET_NULL, null=True)
-#    title = models.ForeignKey(Titles, on_delete=models.CASCADE)
+class GenreTitle(models.Model):
+    genre = models.ForeignKey(Genres, on_delete=models.CASCADE)
+    title = models.ForeignKey("Titles", on_delete=models.CASCADE)
 
-#    def __str__(self):
-#        return f'{self.genre} {self.title}'
+    def __str__(self):
+        return f'{self.genre} {self.title}'
 
 
 class Review(models.Model):
@@ -72,7 +68,7 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='author_review',
     )
-    score = models.SmallIntegerField()  # if 1 <= score <= 10
+    score = models.SmallIntegerField()
     pub_date = models.DateField('date published', auto_now_add=True)
 
     def __str__(self):
@@ -95,4 +91,3 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.text
-

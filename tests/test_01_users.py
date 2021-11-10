@@ -143,7 +143,7 @@ class Test01UserAPI:
         assert response.status_code == 400, (
             'Проверьте, что при POST запросе `/api/v1/users/` без email, возвращаетe статус 400'
         )
-        valid_email = 'valid_email@reviews.fake'
+        valid_email = 'valid_email@yamdb.fake'
         no_username_data = {
             'email': valid_email,
             'role': 'user'
@@ -175,7 +175,7 @@ class Test01UserAPI:
         data = {
             'username': admin.username,
             'role': 'user',
-            'email': 'testuser@reviews.fake'
+            'email': 'testuser@yamdb.fake'
         }
         response = admin_client.post('/api/v1/users/', data=data)
         assert response.status_code == 400, (
@@ -185,7 +185,7 @@ class Test01UserAPI:
         valid_data = {
             'username': 'TestUser_2',
             'role': 'user',
-            'email': 'testuser2@reviews.fake'
+            'email': 'testuser2@yamdb.fake'
         }
         response = admin_client.post('/api/v1/users/', data=valid_data)
         assert response.status_code == 201, (
@@ -193,7 +193,7 @@ class Test01UserAPI:
         )
         valid_data = {
             'username': 'TestUser_3',
-            'email': 'testuser3@reviews.fake'
+            'email': 'testuser3@yamdb.fake'
         }
         response = admin_client.post('/api/v1/users/', data=valid_data)
         assert response.status_code == 201, (
@@ -210,7 +210,7 @@ class Test01UserAPI:
             'username': 'test_username',
             'bio': 'test bio',
             'role': 'moderator',
-            'email': 'testmoder2@reviews.fake'
+            'email': 'testmoder2@yamdb.fake'
         }
         response = admin_client.post('/api/v1/users/', data=data)
         assert response.status_code == 201, (
@@ -254,7 +254,7 @@ class Test01UserAPI:
         valid_data = {
             'username': 'TestUser_3',
             'role': 'user',
-            'email': 'testuser3@reviews.fake'
+            'email': 'testuser3@yamdb.fake'
         }
         response = user_superuser_client.post('/api/v1/users/', data=valid_data)
         assert response.status_code == 201, (
@@ -454,7 +454,7 @@ class Test01UserAPI:
         data = {
             'username': 'TestUser9876',
             'role': 'user',
-            'email': 'testuser9876@reviews.fake'
+            'email': 'testuser9876@yamdb.fake'
         }
         response = client_user.post('/api/v1/users/', data=data)
         assert response.status_code == 403, (
