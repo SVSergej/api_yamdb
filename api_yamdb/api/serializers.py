@@ -4,46 +4,57 @@ import datetime as dt
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    titles = serializers.StringRelatedField(read_only=True, many=True)
+
 
     class Meta:
-
         model = Category
-        fields = ('id','name','slug')
+        fields = ('name','slug')
 
 
 class GenreSerializer(serializers.ModelSerializer):
-    titles = serializers.StringRelatedField(read_only=True, many=True)
-    class Meta:
 
+
+    class Meta:
         model = Genre
-        fields = ('id','name', 'slug')
+        fields = ('name', 'slug')
+
+
+class OutputSerializer(serializers.ModelSerializer):
+    genre = serializers.SlugRelatedField(
+        many=True,
+        slug_field='slug',
+        queryset=Genre.objects.all()
+    )
+    category = serializers.SlugRelatedField(
+        slug_field='slug',
+        queryset=Category.objects.all()
+    )
+
+
+    class Meta:
+        model = Titles
+        fields = ('name', 'year', 'genre', 'category')
+
+
+class InputSerializer(serializers.Serializer):
+    genre = GenreSerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True)
+    name = serializers.StringRelatedField(read_only=True)
+    year = serializers.IntegerField(read_only=True)
+
+
+    class Meta:
+        fields = ('name', 'year', 'genre', 'category')
 
 
 class TitlesSerializer(serializers.ModelSerializer):
-    genre = GenreSerializer(many=True)
-
     class Meta:
-
         model = Titles
         fields = ('id', 'name', 'year', 'genre', 'category')
-    
-    def create(self, validated_data):
 
-        genres = validated_data.pop('genre')
-        title = Titles.objects.create(**validated_data)
-
-        for genre in genres:
-
-            current_genre, status = Genre.objects.get_or_create(
-                **genre)
-
-            Genre_Title.objects.create(
-                genre=current_genre, title=title)
-        return title
-    
     def validate_year(self, value):
         year = dt.date.today().year
         if value > year:
             raise serializers.ValidationError('Проверьте год!')
         return value
+
