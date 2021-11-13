@@ -1,4 +1,4 @@
-from rest_framework import filters, generics, mixins, viewsets 
+from rest_framework import filters, generics, mixins, serializers, viewsets 
 from reviews.models import Titles, Genre, Category
 from .serializers import TitlesSerializer, CategorySerializer, GenreSerializer, InputSerializer, OutputSerializer, RegistrationSerializer, TokenSerializer
 from .permissions import AdminOrReadOnly
@@ -47,7 +47,7 @@ class RegistrationView(APIView):
     serializer_class = RegistrationSerializer
     
     def post(self, request):
-        user = request.data.get('user', {})
+        user = request.data
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -57,7 +57,7 @@ class RegistrationView(APIView):
             subject='Ваш код подтверждения YaMDb',
             message=f'Код подтверждения:{confirmation_code}',
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[settings.RECIPIENT_ADDRESS]
+            recipient_list='Zayan_93@mail.ru'
          )
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
