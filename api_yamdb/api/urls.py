@@ -1,6 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
+from api.views.registation import RegistrationView
+from api.views.customjwttoken import CustomJWTTokenView
+
 from .views import (
     CategoryViewSet,
     GenreViewSet,
@@ -34,4 +37,9 @@ router_v1.register(
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
+    path('v1/', include('djoser.urls.jwt')),
+    path('v1/auth/signup/', RegistrationView.as_view()),
+    path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
 ]
+
+

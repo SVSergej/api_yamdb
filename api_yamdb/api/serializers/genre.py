@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api_yamdb.reviews.models import Genre
+from reviews.models import Genre
 
 
 class GenreSerializer(serializers.ModelSerializer):

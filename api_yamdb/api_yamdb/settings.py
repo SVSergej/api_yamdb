@@ -1,5 +1,7 @@
 import os
 
+from datetime import timedelta
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -15,6 +17,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'api.apps.ApiConfig',
+    'reviews.apps.ReviewsConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -23,8 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
-    'api',
-    'reviews',
 ]
 
 MIDDLEWARE = [
@@ -86,11 +89,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.User'
-
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -109,7 +110,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -118,10 +119,26 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
 }
 
-AUTH_USER_MODEL = 'reviews.User'
+AUTH_USER_MODEL = 'users.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
+SIMPLE_JWT = {
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+   'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'zayandandlyaev@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqtymcvedpcrsqif'
+EMAIL_PORT = 587
+
+RECIPIENT_ADDRESS = 'ridedh@yandex.ru'
+
+DEFAULT_FROM_EMAIL = 'Zayan'
+DEFAULT_TO_EMAIL = ('From Zayan')
+EMAIL_HOST_DOMEN = 'gmail.com'
