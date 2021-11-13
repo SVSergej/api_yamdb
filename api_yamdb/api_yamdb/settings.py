@@ -15,6 +15,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "send_email.apps.SendEmailConfig",
     "api.apps.ApiConfig",
     "reviews.apps.ReviewsConfig",
     "users.apps.UsersConfig",
@@ -119,5 +120,23 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+from datetime import timedelta
+
+SIMPLE_JWT = {
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+   'AUTH_HEADER_TYPES': ('Bearer',),
+} 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'zayandandlyaev@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqtymcvedpcrsqif'
+EMAIL_PORT = 587
+
+RECIPIENT_ADDRESS = 'Zayan_93@mail.ru'
+
+DEFAULT_FROM_EMAIL = 'Zayan'
+DEFAULT_TO_EMAIL = ('From Zayan')
+AUTH_USER_MODEL = 'users.User'
+EMAIL_HOST_DOMEN = 'gmail.com'
