@@ -1,7 +1,15 @@
 from rest_framework import serializers
-from reviews.models import Categories, Genres, Titles
-import datetime as dt
 
+from reviews.models import Categories, Genres, Titles
+
+from reviews.models import Category, Genre, Titles, Genre_Title
+from users.models import User
+
+import datetime as dt
+from django.contrib.auth.tokens import default_token_generator
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import AccessToken
 
 class CategoriesSerializer(serializers.ModelSerializer):
 
@@ -31,4 +39,31 @@ class TitlesSerializer(serializers.ModelSerializer):
         if value > year:
             raise serializers.ValidationError('Проверьте год!')
         return value
-    
+
+
+class RegistrationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['email', 'username']
+
+    def create(self, validated_data):
+
+        return User.objects.create_user(**validated_data)
+
+
+class TokenSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = User
+        fields = ['token',]
+
+
+# class TokenSerializer(serializers.ModelSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = AccessToken.for_user(user)
+        return token
+
