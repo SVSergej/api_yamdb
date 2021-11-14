@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
-from api_yamdb.reviews.models import Category
+from reviews.models import Category
 from ..serializers.category import CategorySerializer
 
 

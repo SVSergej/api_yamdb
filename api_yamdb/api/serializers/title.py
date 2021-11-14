@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api_yamdb.reviews.models import Titles
+from reviews.models import Titles
 import datetime as dt
 
 

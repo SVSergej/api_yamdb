@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from ..serializers.review import ReviewSerializer
 from ..permissions import ModeratorOrReadOnly
-from api_yamdb.reviews.models import Review, Titles
+from reviews.models import Review, Titles
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

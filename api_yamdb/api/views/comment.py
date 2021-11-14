@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from ..serializers.comment import CommentSerializer
 from ..permissions import UserOrReadOnly
-from api_yamdb.reviews.models import Review, Comments
+from reviews.models import Review, Comments
 
 
 class CommentViewSet(viewsets.ModelViewSet):

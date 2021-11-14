@@ -12,21 +12,26 @@ class UserManager(BaseUserManager):
     же самого кода, который Django использовал для создания User (для демонстрации).
     """
 
-    def create_user(self, username, email):
-   
+    def create_user(self, username, email, password=None, role='', bio=''):
+
         if username is None:
             raise TypeError('Users must have a username.')
 
         if email is None:
             raise TypeError('Users must have an email address.')
 
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            role=role, bio=bio
+        )
+        user.set_password(password)
         user.save()
 
         return user
 
     def create_superuser(self, username, email, password):
- 
+
         if password is None:
             raise TypeError('Superusers must have a password.')
 
@@ -38,7 +43,6 @@ class UserManager(BaseUserManager):
         return user
 
 
-
 class User(AbstractUser):
     bio = models.TextField(
         'Биография',
@@ -48,8 +52,6 @@ class User(AbstractUser):
     email = models.EmailField(db_index=True, unique=True)
     last_login = models.DateTimeField(auto_now=True)
     objects = UserManager()
-    
-
 
     def _generate_jwt_token(self):
         """

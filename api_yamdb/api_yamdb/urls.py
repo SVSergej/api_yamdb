@@ -17,10 +17,13 @@ urlpatterns = [
         TemplateView.as_view(template_name='redoc.html'),
         name='redoc'
     ),
-    path('api/v1/users/', RegistrationView.as_view()),
-    path('api/v1/', include('djoser.urls.jwt')),
-    path('api/v1/auth/token', TokenCreateView.as_view()),
-    path('api/v1/auth/signup/', TokenCreateView.as_view()),
-    path('api/v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
-    path('api/v1/auth/token/refresh/', CustomJWTTokenView.as_view(), name='token_refresh'),
+# <<<<<<< HEAD
+#     path('api/v1/users/', RegistrationView.as_view()),
+#     path('api/v1/', include('djoser.urls.jwt')),
+#     path('api/v1/auth/token', TokenCreateView.as_view()),
+#     path('api/v1/auth/signup/', TokenCreateView.as_view()),
+#     path('api/v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
+#     path('api/v1/auth/token/refresh/', CustomJWTTokenView.as_view(), name='token_refresh'),
+# =======
+# >>>>>>> origin/users
 ]
