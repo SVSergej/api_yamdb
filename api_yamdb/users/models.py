@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 import jwt
 from datetime import datetime, timedelta
 from django.conf import settings
+import uuid
 
 
 class UserManager(BaseUserManager):
@@ -50,7 +51,8 @@ class User(AbstractUser):
     )
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
-    last_login = models.DateTimeField(auto_now=True)
+    last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
+    confirmation_code = models.CharField(max_length=36, default=uuid.uuid4)
     objects = UserManager()
 
     def _generate_jwt_token(self):
