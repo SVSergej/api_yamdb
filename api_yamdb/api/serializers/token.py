@@ -7,7 +7,7 @@ class TokenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['token']
+        fields = ['username', 'confirmation_code']
 
     @classmethod
     def get_token(cls, user):

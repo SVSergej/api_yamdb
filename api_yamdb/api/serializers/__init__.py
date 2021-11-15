@@ -7,6 +7,7 @@ from .input import InputSerializer
 from .output import OutputSerializer
 from .registration import RegistrationSerializer
 from .token import TokenSerializer
+from .user import UserSerializer
 
 __all__ = [
     "GenreSerializer",
@@ -17,5 +18,6 @@ __all__ = [
     "ReviewSerializer",
     "CommentSerializer",
     "RegistrationSerializer",
-    "TokenSerializer"
+    "TokenSerializer",
+    "UserSerializer"
 ]

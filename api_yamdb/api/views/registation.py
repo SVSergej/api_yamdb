@@ -18,6 +18,8 @@ class RegistrationView(APIView):
         user = request.data
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         user = serializer.save()
 
         confirmation_code = default_token_generator.make_token(user)
@@ -29,5 +31,3 @@ class RegistrationView(APIView):
         )
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# default_token_generator.make_token(user)

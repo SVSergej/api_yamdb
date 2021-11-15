@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -119,9 +118,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
 }
 
-
 AUTH_USER_MODEL = 'users.User'
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
@@ -139,30 +136,8 @@ EMAIL_HOST_USER = 'zayandandlyaev@gmail.com'
 EMAIL_HOST_PASSWORD = 'hqtymcvedpcrsqif'
 EMAIL_PORT = 587
 
-RECIPIENT_ADDRESS = 'ridedh@yandex.ru'
-
-
-from datetime import timedelta
-
-SIMPLE_JWT = {
-   'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-   'AUTH_HEADER_TYPES': ('Bearer',),
-} 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'zayandandlyaev@gmail.com'
-EMAIL_HOST_PASSWORD = 'hqtymcvedpcrsqif'
-EMAIL_PORT = 587
-
-RECIPIENT_ADDRESS = 'Zayan_93@mail.ru'
+# RECIPIENT_ADDRESS = 'ridedh@yandex.ru'
 
 DEFAULT_FROM_EMAIL = 'Zayan'
 DEFAULT_TO_EMAIL = ('From Zayan')
-AUTH_USER_MODEL = 'users.User'
-
-DEFAULT_FROM_EMAIL = 'Zayan'
-DEFAULT_TO_EMAIL = ('From Zayan')
-
 EMAIL_HOST_DOMEN = 'gmail.com'
