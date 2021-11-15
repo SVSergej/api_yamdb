@@ -29,5 +29,3 @@ class RegistrationView(APIView):
         )
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# default_token_generator.make_token(user)
