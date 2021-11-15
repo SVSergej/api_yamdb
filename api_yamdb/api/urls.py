@@ -11,6 +11,12 @@ from .views import (
     ReviewViewSet,
     CommentViewSet,
 )
+from djoser.views import TokenCreateView
+from api.views import RegistrationView, CustomJWTTokenView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 
 router_v1 = DefaultRouter()
@@ -40,6 +46,12 @@ urlpatterns = [
     path('v1/', include('djoser.urls.jwt')),
     path('v1/auth/signup/', RegistrationView.as_view()),
     path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
+    path('api/v1/users/', RegistrationView.as_view()),
+    path('api/v1/', include('djoser.urls.jwt')),
+    path('api/v1/auth/token', TokenCreateView.as_view()),
+    path('api/v1/auth/signup/', TokenCreateView.as_view()),
+    path('api/v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
+    path('api/v1/auth/token/refresh/', CustomJWTTokenView.as_view(), name='token_refresh'),
 ]
 
 
