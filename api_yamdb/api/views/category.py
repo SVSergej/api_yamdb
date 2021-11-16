@@ -5,8 +5,6 @@ from rest_framework import filters
 from reviews.models import Category
 from ..serializers.category import CategorySerializer
 from ..permissions import AdminOrReadOnly
-from rest_framework.response import Response
-from rest_framework import status
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -14,5 +12,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
     serializer_class = CategorySerializer
     permission_classes = (AdminOrReadOnly,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
+    lookup_field = 'slug'
 
 

@@ -19,7 +19,6 @@ class Genre(models.Model):
         return self.slug
 
 
-# class GenreTitle(models.Model):
 class Genre_Title(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     title = models.ForeignKey("Titles", on_delete=models.CASCADE)
