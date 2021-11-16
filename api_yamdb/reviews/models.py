@@ -1,10 +1,11 @@
 from django.db import models
 from users.models import User
+from rest_framework.validators import UniqueValidator
 
 
 class Category(models.Model):
     name = models.CharField(max_length=256)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.slug
@@ -12,7 +13,7 @@ class Category(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=256)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.slug
