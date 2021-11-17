@@ -51,7 +51,9 @@ class User(AbstractUser):
     )
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
-    last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
+    # last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
+    last_login = models.DateTimeField(auto_now=True)
+
     confirmation_code = models.CharField(max_length=36, default=uuid.uuid4)
     objects = UserManager()
 

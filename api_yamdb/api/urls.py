@@ -1,9 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views.registation import RegistrationView
-from api.views.customjwttoken import CustomJWTTokenView
-from api.views.user import UserViewSet, UserApi
+from .views.registation import RegistrationView
+from .views.customjwttoken import CustomJWTTokenView
+from .views.user import UserViewSet, UserApi
 
 from .views import (
     CategoryViewSet,
@@ -45,5 +45,3 @@ urlpatterns = [
     path('v1/users/', include(router_v2.urls)),
     path('v1/users/me/', UserApi.as_view()),
 ]
-
-

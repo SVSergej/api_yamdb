@@ -7,7 +7,7 @@ from django.contrib.auth.tokens import default_token_generator
 
 from users.models import User
 
-from api.serializers.token import TokenSerializer
+from ..serializers.token import TokenSerializer
 
 
 class CustomJWTTokenView(generics.CreateAPIView):
