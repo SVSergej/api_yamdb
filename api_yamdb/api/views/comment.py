@@ -1,16 +1,18 @@
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import viewsets
+
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
 
 from ..serializers.comment import CommentSerializer
-from ..permissions import UserOrReadOnly
+from ..permissions import AuthorOrReadOnly
 from reviews.models import Review, Comments
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = (UserOrReadOnly,)
+    permission_classes = (AuthorOrReadOnly,)
     pagination_class = LimitOffsetPagination
 
     def _get_review(self):

@@ -10,3 +10,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+    def validate_username(self, value):
+        if value == 'me':
+            raise serializers.ValidationError('Выбериту другой username')
+        return value
