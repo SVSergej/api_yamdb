@@ -1,6 +1,11 @@
 from django.db import models
+from django.core.validators import(
+    MaxValueValidator,
+    MinValueValidator
+)
+
 from users.models import User
-from rest_framework.validators import UniqueValidator
+
 
 
 class Category(models.Model):
@@ -51,20 +56,36 @@ class Review(models.Model):
     title = models.ForeignKey(
         Titles,
         on_delete=models.CASCADE,
-        related_name='titles_reviews',
+        related_name='название',
     )
     text = models.TextField()
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         null=True,
-        related_name='authors_reviews',
+        related_name='автор',
     )
-    score = models.PositiveSmallIntegerField()
+    score = models.PositiveSmallIntegerField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        verbose_name='Оценка'
+    )
     pub_date = models.DateField('date published', auto_now_add=True)
 
+    class Meta:
+        ordering = ('pub_date',)
+        verbose_name = 'отзыв'
+        verbose_name_plural = 'отзывы'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'title'],
+                name='unique_review'
+            )
+        ]
+
     def __str__(self):
-        return self.text
+        return self.title.name
 
 
 class Comments(models.Model):
