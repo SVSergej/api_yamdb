@@ -1,10 +1,11 @@
 from django.db import models
 from users.models import User
+from rest_framework.validators import UniqueValidator
 
 
 class Category(models.Model):
     name = models.CharField(max_length=256)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.slug
@@ -12,13 +13,12 @@ class Category(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=256)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.slug
 
 
-# class GenreTitle(models.Model):
 class Genre_Title(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     title = models.ForeignKey("Titles", on_delete=models.CASCADE)
@@ -57,6 +57,7 @@ class Review(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        null=True,
         related_name='authors_reviews',
     )
     score = models.PositiveSmallIntegerField()
@@ -75,6 +76,7 @@ class Comments(models.Model):
     text = models.TextField()
     author = models.ForeignKey(
         User,
+        null=True,
         on_delete=models.CASCADE,
         related_name='authors_comments'
     )
