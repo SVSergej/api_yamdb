@@ -1,15 +1,17 @@
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import serializers
+
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
+
 from django.shortcuts import get_object_or_404
 
-from users.models import User
-
 from api.serializers.user import UserSerializer
-from api.permissions import IsAdminPermission
+from api.permissions import IsAdminPermission, AdminOrReadOnly
+
+from users.models import User
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -2,7 +2,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import viewsets
 
 from django.shortcuts import get_object_or_404
-from django.core.exceptions import PermissionDenied
+# from django.core.exceptions import PermissionDenied
 
 from ..serializers.comment import CommentSerializer
 from ..permissions import AuthorOrReadOnly
