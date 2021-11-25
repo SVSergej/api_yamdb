@@ -1,9 +1,10 @@
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 from ..serializers.review import ReviewSerializer
-from ..permissions import ModeratorOrReadOnly
+from ..permissions import ModeratorOrReadOnly, IsAdminPermission
 from reviews.models import Review, Titles
 
 
