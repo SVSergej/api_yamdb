@@ -8,7 +8,8 @@ class CustomValidator(APIException):
     default_detail = 'Сервер не доступен'
 
     def __init__(self, detail, fields, status_code):
-        if status_code is not None:self.status_code = status_code
+        if status_code is not None:
+            self.status_code = status_code
         if detail is not None:
             self.detail = {fields: force_text(detail)}
         else:

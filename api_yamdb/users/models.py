@@ -91,7 +91,7 @@ class User(AbstractUser):
         blank=True,
         max_length=1,
         choices=ROLE_CHOICES,
-        default='U'
+        default='user'
     )
 
     @property
