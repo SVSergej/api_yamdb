@@ -4,7 +4,6 @@ from reviews.models import Review
 from rest_framework.validators import UniqueTogetherValidator
 
 
-
 class ReviewSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         read_only=True, slug_field='username'

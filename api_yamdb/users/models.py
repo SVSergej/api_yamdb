@@ -31,14 +31,15 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, username, email, password):
+    def create_superuser(self, username, email, password, role, bio):
 
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        user = self.create_user(username, email, password)
+        user = self.create_user(username, email, password, role, bio)
         user.is_superuser = True
         user.is_staff = True
+        user.set_password(password)
         user.save()
 
         return user
@@ -49,9 +50,12 @@ class User(AbstractUser):
         'Биография',
         blank=True,
     )
+
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
+    # last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
     last_login = models.DateTimeField(auto_now=True)
+
     confirmation_code = models.CharField(max_length=36, default=uuid.uuid4)
     objects = UserManager()
 
@@ -73,10 +77,13 @@ class User(AbstractUser):
     def token(self):
         return self._generate_jwt_token()
 
+    USER = 'user'
+    MODERATOR = 'moderator'
+    ADMIN = 'admin'
     ROLE_CHOICES = (
-        ('U', 'user'),
-        ('M', 'moderator'),
-        ('A', 'admin'),
+        (USER, 'user'),
+        (MODERATOR, 'moderator'),
+        (ADMIN, 'admin'),
     )
 
     role = models.CharField(
@@ -86,6 +93,18 @@ class User(AbstractUser):
         choices=ROLE_CHOICES,
         default='U'
     )
+
+    @property
+    def is_admin(self):
+        return self.role == self.ADMIN or self.is_superuser
+
+    @property
+    def is_moderator(self):
+        return self.role == self.MODERATOR
+
+    @property
+    def is_user(self):
+        return self.role == self.USER
 
     def __str__(self):
         return self.email

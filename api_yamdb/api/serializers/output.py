@@ -16,4 +16,7 @@ class OutputSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Titles
-        fields = ('id', 'name', 'year', 'genre', 'category')
+        fields = ('id', 'name',
+                  'year', 'genre',
+                  'category',
+                  'description')
