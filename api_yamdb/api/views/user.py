@@ -1,15 +1,14 @@
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import serializers
+from rest_framework.permissions import AllowAny
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 
-from django.shortcuts import get_object_or_404
-
-from ..serializers.user import UserSerializer
-from ..permissions import IsAdminPermission, AdminOrReadOnly
+from api.serializers.user import UserSerializer
+from api.permissions import IsAdminPermission
 
 from users.models import User
 
@@ -23,12 +22,12 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class UserApi(APIView):
-    permission_classes = (IsAdminPermission,)
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
     def get(self, request):
-        user = get_object_or_404(User, user=request.user)
+        user = request.user
         serializer = self.serializer_class(user)
         return Response(serializer.data)
 

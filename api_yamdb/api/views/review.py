@@ -3,14 +3,14 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 
 from ..serializers.review import ReviewSerializer
-from ..permissions import ModeratorOrReadOnly, IsAuthorAdminModeratorOrReadOnly
+from ..permissions import ModeratorOrReadOnly
 from reviews.models import Review, Titles
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = (IsAuthorAdminModeratorOrReadOnly,)
+    permission_classes = (ModeratorOrReadOnly,)
     pagination_class = LimitOffsetPagination
 
     def _get_title(self):
