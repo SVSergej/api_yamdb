@@ -10,7 +10,8 @@ class UserManager(BaseUserManager):
     """
     Django требует, чтобы кастомные пользователи определяли свой собственный
     класс Manager. Унаследовавшись от BaseUserManager, мы получаем много того
-    же самого кода, который Django использовал для создания User (для демонстрации).
+    же самого кода, который Django использовал
+    для создания User (для демонстрации).
     """
 
     def create_user(self, username, email, password=None, role='', bio=''):
@@ -51,18 +52,22 @@ class User(AbstractUser):
         blank=True,
     )
 
-    username = models.CharField(db_index=True, max_length=255, unique=True)
+    username = models.CharField(db_index=True,
+                                max_length=255,
+                                unique=True)
     email = models.EmailField(db_index=True, unique=True)
-    # last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
     last_login = models.DateTimeField(auto_now=True)
 
-    confirmation_code = models.CharField(max_length=36, default=uuid.uuid4)
+    confirmation_code = models.CharField(max_length=36,
+                                         default=uuid.uuid4)
     objects = UserManager()
 
     def _generate_jwt_token(self):
         """
-        Генерирует веб-токен JSON, в котором хранится идентификатор этого
-        пользователя, срок действия токена составляет 1 день от создания
+        Генерирует веб-токен JSON, в котором
+        хранится идентификатор этого
+        пользователя, срок действия токена
+        составляет 1 день от создания
         """
         dt = datetime.now() + timedelta(days=1)
 
