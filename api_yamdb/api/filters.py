@@ -1,4 +1,4 @@
-from  django_filters.rest_framework import (
+from django_filters.rest_framework import (
     CharFilter,
     FilterSet,
     NumberFilter

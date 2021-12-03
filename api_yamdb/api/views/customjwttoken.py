@@ -21,6 +21,8 @@ class CustomJWTTokenView(generics.CreateAPIView):
             username=serializer.validated_data.get('username')
         )
         token = AccessToken.for_user(user)
-        if default_token_generator.check_token(user, request.data['confirmation_code']) is True:
+        if default_token_generator.check_token(
+                user,
+                request.data['confirmation_code']) is True:
             return Response({'Token': str(token)}, status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)

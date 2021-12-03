@@ -7,15 +7,19 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
 
     def validate_email(self, email):
+        message = 'Эта почта используется другим пользователем'
         if User.objects.filter(email=email):
-            raise serializers.ValidationError('Эта почта используется другим пользователем')
+            raise serializers.ValidationError(message)
         return email
 
     def validate_username(self, username):
+        message = 'Эта почта используется другим пользователем'
         if User.objects.filter(username=username):
-            raise serializers.ValidationError('Эта почта используется другим пользователем')
+            raise serializers.ValidationError(message)
         return username
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'bio', 'role', 'first_name', 'last_name',)
+        fields = ('email', 'username',
+                  'bio', 'role',
+                  'first_name', 'last_name',)

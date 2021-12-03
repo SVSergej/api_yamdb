@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 from ..serializers.comment import CommentSerializer
 from ..permissions import ModeratorOrReadOnly
-from reviews.models import Review, Comment, User
+from reviews.models import Review, Comment
 
 
 class CommentViewSet(viewsets.ModelViewSet):

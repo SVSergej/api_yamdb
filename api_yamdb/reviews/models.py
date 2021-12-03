@@ -1,11 +1,10 @@
 from django.db import models
-from django.core.validators import(
+from django.core.validators import (
     MaxValueValidator,
     MinValueValidator
 )
 
 from users.models import User
-
 
 
 class Category(models.Model):
@@ -25,8 +24,10 @@ class Genre(models.Model):
 
 
 class Genre_Title(models.Model):
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    title = models.ForeignKey("Title", on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre,
+                              on_delete=models.CASCADE)
+    title = models.ForeignKey("Title",
+                              on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.genre} {self.title}'
@@ -68,10 +69,12 @@ class Review(models.Model):
     score = models.PositiveSmallIntegerField(
         blank=True,
         null=True,
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        validators=[MinValueValidator(1),
+                    MaxValueValidator(10)],
         verbose_name='Оценка'
     )
-    pub_date = models.DateField('date published', auto_now_add=True)
+    pub_date = models.DateField('date published',
+                                auto_now_add=True)
 
     class Meta:
         ordering = ('pub_date',)
@@ -101,7 +104,8 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='authors_comments'
     )
-    pub_date = models.DateField('date published', auto_now_add=True)
+    pub_date = models.DateField('date published',
+                                auto_now_add=True)
 
     def __str__(self):
         return self.text
