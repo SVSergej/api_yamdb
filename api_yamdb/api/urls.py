@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views.registation import RegistrationView
 from .views.customjwttoken import CustomJWTTokenView
-from .views.user import UserViewSet, UserApi
+from .views.user import UserViewSet
 
 from .views import (
     CategoryViewSet,
@@ -15,7 +15,6 @@ from .views import (
 
 
 router_v1 = DefaultRouter()
-router_v2 = DefaultRouter()
 
 router_v1.register('titles',
                    TitleViewSet,
@@ -36,12 +35,10 @@ router_v1.register(
     CommentViewSet,
     basename='comment'
 )
-router_v2.register('', UserViewSet, basename='users')
+router_v1.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
     path('v1/auth/signup/', RegistrationView.as_view()),
     path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
-    path('v1/users/', include(router_v2.urls)),
-    path('v1/users/me/', UserApi.as_view()),
 ]

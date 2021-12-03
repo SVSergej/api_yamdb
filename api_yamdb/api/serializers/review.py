@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from reviews.models import Review
-# from rest_framework.validators import UniqueTogetherValidator
+
 
 class ReviewSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
@@ -22,11 +22,4 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-
         fields = ('id', 'text', 'author', 'score', 'pub_date')
-    #     validators = [
-    #         UniqueTogetherValidator(
-    #             queryset=Review.objects.all(),
-    #             fields=['title', 'author']
-    #         )
-    #     ]

@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from reviews.models import Titles
+from reviews.models import Title
 import datetime as dt
 
 
 class TitlesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Titles
+        model = Title
         fields = ('id', 'name', 'year', 'genre', 'category', 'titles_reviews')
 
     def validate_year(self, value):

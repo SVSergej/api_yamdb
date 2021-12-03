@@ -1,10 +1,12 @@
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+
 from django.shortcuts import get_object_or_404
 
 from ..serializers.review import ReviewSerializer
 from ..permissions import ModeratorOrReadOnly
-from reviews.models import Review, Titles
+from reviews.models import Review, Title
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -14,15 +16,18 @@ class ReviewViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
 
     def _get_title(self):
-        return get_object_or_404(Titles,
-                                 pk=self.kwargs['title_id'])
+        return get_object_or_404(Title,
+                                 pk=self.kwargs.get('title_id'))
 
     def get_queryset(self):
-        return Review.objects.filter(title_id=self._get_title().id)
+        return self._get_title().reviews.all()
 
     def perform_create(self, serializer):
-        title = get_object_or_404(
-            Titles, pk=self.kwargs['title_id']
-        )
-        # serializer.save(author=self.request.user, title=title)
-        serializer.save(title=self._get_title())
+        serializer.save(author=self.request.user, title=self._get_title())
+
+    def delete(self, request, pk):
+        if request.user.is_admin or request.user.is_moderator:
+            snippet = super().get_queryset().id
+            snippet.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_403_FORBIDDEN)

@@ -1,10 +1,7 @@
-# from typing_extensions import Required
 from rest_framework import serializers
 
 from .genre import GenreSerializer
 from .category import CategorySerializer
-# from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.permissions import AllowAny
 
 
 class InputSerializer(serializers.Serializer):
@@ -14,7 +11,8 @@ class InputSerializer(serializers.Serializer):
     year = serializers.IntegerField(read_only=True)
     description = serializers.StringRelatedField(read_only=True)
     id = serializers.ReadOnlyField()
+    rating = serializers.IntegerField()
 
     class Meta:
         fields = ('id', 'name', 'year', 'genre',
-                  'category', 'description', 'titles_reviews')
+                  'category', 'description', 'rating')

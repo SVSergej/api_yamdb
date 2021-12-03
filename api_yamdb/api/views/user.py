@@ -1,41 +1,40 @@
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework import serializers
-from rest_framework.permissions import AllowAny
-
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
 
-from api.serializers.user import UserSerializer
-from api.permissions import IsAdminPermission
+
+from ..serializers.user import UserSerializer
+from ..permissions import AuthorOrAdmin
 
 from users.models import User
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (AuthorOrAdmin,)
     lookup_field = 'username'
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    pagination_class = LimitOffsetPagination
-    permission_classes = (IsAdminPermission,)
 
-
-class UserApi(APIView):
-    permission_classes = (AllowAny,)
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-    def get(self, request):
-        user = request.user
-        serializer = self.serializer_class(user)
-        return Response(serializer.data)
-
-    def patch(self, request):
-        serializer = self.serializer_class(
-            request.user, data=request.data, partial=True, context={'request': request}
+    @action(
+        detail=False,
+        url_path='me',
+        methods=['GET', 'PATCH'],
+        permission_classes=[IsAuthenticated],
+    )
+    def get_self_user_page(self, request):
+        if request.method == 'GET':
+            serializer = UserSerializer(request.user)
+            return Response(
+                serializer.data,
+                status=status.HTTP_200_OK
+            )
+        serializer = UserSerializer(
+            request.user,
+            data=request.data,
+            partial=True
         )
-        if serializer.is_valid():
-            serializers.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(role=request.user.role, partial=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

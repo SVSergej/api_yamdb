@@ -26,13 +26,13 @@ class Genre(models.Model):
 
 class Genre_Title(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    title = models.ForeignKey("Titles", on_delete=models.CASCADE)
+    title = models.ForeignKey("Title", on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.genre} {self.title}'
 
 
-class Titles(models.Model):
+class Title(models.Model):
     name = models.CharField(max_length=200)
     year = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200)
@@ -54,9 +54,9 @@ class Titles(models.Model):
 
 class Review(models.Model):
     title = models.ForeignKey(
-        Titles,
+        Title,
         on_delete=models.CASCADE,
-        related_name='название',
+        related_name='reviews',
     )
     text = models.TextField()
     author = models.ForeignKey(
@@ -88,7 +88,7 @@ class Review(models.Model):
         return self.title.name
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     review = models.ForeignKey(
         Review,
         on_delete=models.CASCADE,
