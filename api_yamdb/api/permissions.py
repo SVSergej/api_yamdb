@@ -22,7 +22,7 @@ class ModeratorOrReadOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return (
-            request.method in permissions.SAFE_METHODS 
+            request.method in permissions.SAFE_METHODS
             or request.user.is_authenticated
         )
 
@@ -34,18 +34,18 @@ class ModeratorOrReadOnly(permissions.BasePermission):
             return request.user.is_authenticated
 
         return request.user.is_authenticated and (
-               request.user == obj.author or
-               request.user.is_admin or
-               request.user.is_moderator
-            )
+               request.user == obj.author
+               or request.user.is_admin
+               or request.user.is_moderator
+        )
 
 
 class AuthorOrAdmin(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return (
-             request.user.is_authenticated and
-             request.user.is_admin
+             request.user.is_authenticated
+             and request.user.is_admin
         )
 
     def has_object_permission(self, request, view, obj):
@@ -56,6 +56,6 @@ class AuthorOrAdmin(permissions.BasePermission):
             return request.user.is_admin
 
         return request.user.is_authenticated and (
-            request.user.is_admin or
-            request.user == obj.author
+            request.user.is_admin
+            or request.user == obj.author
         )
