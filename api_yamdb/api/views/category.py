@@ -15,3 +15,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name',)
     lookup_field = 'slug'
+
+    http_method_names = ['post', 'delete']
+
+    # def get_method(self):
+    #     if self.action == 'List':
+    #         http_method_names = ['get', 'post', 'delete']
+    #         return http_method_names
