@@ -6,11 +6,12 @@ from .views.customjwttoken import CustomJWTTokenView
 from .views.user import UserViewSet
 
 from .views import (
-    CategoryViewSet,
     GenreViewSet,
     TitleViewSet,
     ReviewViewSet,
-    CommentViewSet
+    CommentViewSet,
+    CategoryList,
+    CategoryDetail
 )
 
 
@@ -22,9 +23,6 @@ router_v1.register('titles',
 router_v1.register('genres',
                    GenreViewSet,
                    basename='genres')
-router_v1.register('categories',
-                   CategoryViewSet,
-                   basename='categories')
 router_v1.register(
     r'titles/(?P<title_id>\d+)/reviews',
     ReviewViewSet,
@@ -39,6 +37,8 @@ router_v1.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
+    path('v1/categories/', CategoryList.as_view() ),
+    path('v1/categories/<slug:slug>/', CategoryDetail.as_view()),
     path('v1/auth/signup/', RegistrationView.as_view()),
     path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
 ]
