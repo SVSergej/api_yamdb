@@ -1,6 +1,5 @@
-from rest_framework import viewsets, filters, generics, mixins
+from rest_framework import filters, generics
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.decorators import api_view
 
 from reviews.models import Category
 from ..serializers.category import CategorySerializer
