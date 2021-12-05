@@ -37,7 +37,7 @@ router_v1.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
-    path('v1/categories/', CategoryList.as_view() ),
+    path('v1/categories/', CategoryList.as_view()),
     path('v1/categories/<slug:slug>/', CategoryDetail.as_view()),
     path('v1/auth/signup/', RegistrationView.as_view()),
     path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
