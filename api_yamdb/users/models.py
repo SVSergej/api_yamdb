@@ -1,9 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-import jwt
-from datetime import timedelta, timezone
-from django.conf import settings
 import uuid
+from datetime import timedelta, timezone
+
+import jwt
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.db import models
 
 
 class UserManager(BaseUserManager):

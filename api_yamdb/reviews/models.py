@@ -1,10 +1,11 @@
-from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime as dt
+
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from users.models import User
-import datetime as dt
 
 
 class Category(models.Model):
