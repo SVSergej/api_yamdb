@@ -1,8 +1,9 @@
 from rest_framework import serializers
+
 from reviews.models import Category, Genre, Title
 
 
-class OutputSerializer(serializers.ModelSerializer):
+class TitleOutputSerializer(serializers.ModelSerializer):
     genre = serializers.SlugRelatedField(
         many=True,
         slug_field='slug',
