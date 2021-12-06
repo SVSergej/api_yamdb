@@ -1,11 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (CategoryDetail, CategoryList, CommentViewSet, GenreViewSet,
-                    ReviewViewSet, TitleViewSet)
-from .views.customjwttoken import CustomJWTTokenView
-from .views.registation import RegistrationView
-from .views.user import UserViewSet
+from .views import (CategoryViewSet, CommentViewSet, GenreViewSet,
+                    ReviewViewSet, TitleViewSet, CustomJWTTokenView,
+                    RegistrationView, UserViewSet)
 
 router_v1 = DefaultRouter()
 
@@ -15,6 +13,9 @@ router_v1.register('titles',
 router_v1.register('genres',
                    GenreViewSet,
                    basename='genres')
+router_v1.register('categories',
+                   CategoryViewSet,
+                   basename='categories')
 router_v1.register(
     r'titles/(?P<title_id>\d+)/reviews',
     ReviewViewSet,
@@ -29,8 +30,6 @@ router_v1.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
-    path('v1/categories/', CategoryList.as_view()),
-    path('v1/categories/<slug:slug>/', CategoryDetail.as_view()),
     path('v1/auth/signup/', RegistrationView.as_view()),
     path('v1/auth/token/', CustomJWTTokenView.as_view(), name='token_obtain'),
 ]

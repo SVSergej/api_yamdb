@@ -18,7 +18,7 @@ class CommentViewSet(viewsets.ModelViewSet):
                                  pk=self.kwargs.get('review_id'))
 
     def get_queryset(self):
-        return Comment.objects.filter(review_id=self._get_review().id)
+        return self._get_review().comments.all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user, review=self._get_review())
