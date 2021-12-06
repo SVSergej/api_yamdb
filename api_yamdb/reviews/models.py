@@ -43,14 +43,18 @@ class Genre_Title(models.Model):
     def __str__(self):
         return f'{self.genre} {self.title}'
 
+
 def my_year_validator(value):
     if value > dt.datetime.now().year:
         raise ValidationError(
             _('%(value)s is not a correcrt year!'),
             params={'value': value},
         )
+
+
 class Title(models.Model):
-    name = models.CharField(max_length=200, db_index=True, verbose_name='title_name')
+    name = models.CharField(max_length=200, db_index=True,
+                            verbose_name='title_name')
     year = models.PositiveSmallIntegerField(
         validators=[my_year_validator],
         verbose_name="Year"
