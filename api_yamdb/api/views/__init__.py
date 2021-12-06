@@ -1,10 +1,10 @@
-from .review import ReviewViewSet
+from .category import CategoryViewSet
 from .comment import CommentViewSet
-from .title import TitleViewSet
-from .genre import GenreViewSet
-from .category import CategoryList, CategoryDetail
-from .registation import RegistrationView
 from .customjwttoken import CustomJWTTokenView
+from .genre import GenreViewSet
+from .registation import RegistrationView
+from .review import ReviewViewSet
+from .title import TitleViewSet
 
 __all__ = [
     "GenreViewSet",
@@ -13,6 +13,5 @@ __all__ = [
     "CommentViewSet",
     "RegistrationView",
     "CustomJWTTokenView",
-    "CategoryList",
-    "CategoryDetail"
+    "CategoryViewSet",
 ]

@@ -1,12 +1,11 @@
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-
 from django.shortcuts import get_object_or_404
-
-from ..serializers.review import ReviewSerializer
-from ..permissions import ModeratorOrReadOnly
+from rest_framework import status, viewsets
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.response import Response
 from reviews.models import Review, Title
+
+from ..permissions import ModeratorOrReadOnly
+from ..serializers.review import ReviewSerializer
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

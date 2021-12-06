@@ -1,6 +1,6 @@
+from django.utils import timezone
 from rest_framework import serializers
 from reviews.models import Title
-import datetime as dt
 
 
 class TitlesSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class TitlesSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'year', 'genre', 'category', 'titles_reviews')
 
     def validate_year(self, value):
-        year = dt.date.today().year
+        year = timezone.now()
         if value > year:
             raise serializers.ValidationError('Проверьте год!')
         return value

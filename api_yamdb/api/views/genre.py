@@ -1,12 +1,10 @@
-from rest_framework import viewsets
+from rest_framework import filters, status, viewsets
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework import filters
-
-from reviews.models import Genre
-from ..serializers.genre import GenreSerializer
-from ..permissions import AdminOrReadOnly
 from rest_framework.response import Response
-from rest_framework import status
+from reviews.models import Genre
+
+from ..permissions import AdminOrReadOnly
+from ..serializers.genre import GenreSerializer
 
 
 class GenreViewSet(viewsets.ModelViewSet):
