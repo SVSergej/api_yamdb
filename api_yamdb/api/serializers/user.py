@@ -8,13 +8,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_email(self, email):
         message = 'Эта почта используется другим пользователем'
-        if User.objects.filter(email=email):
+        if User.objects.filter(email=email).exists():
             raise serializers.ValidationError(message)
         return email
 
     def validate_username(self, username):
         message = 'Эта почта используется другим пользователем'
-        if User.objects.filter(username=username):
+        if User.objects.filter(username=username).exists():
             raise serializers.ValidationError(message)
         return username
 

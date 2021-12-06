@@ -1,11 +1,11 @@
-from .review import ReviewSerializer
+from .category import CategorySerializer
 from .comment import CommentSerializer
 from .genre import GenreSerializer
-from .title import TitlesSerializer
-from .category import CategorySerializer
 from .input import InputSerializer
 from .output import OutputSerializer
 from .registration import RegistrationSerializer
+from .review import ReviewSerializer
+from .title import TitlesSerializer
 from .token import TokenSerializer
 from .user import UserSerializer
 

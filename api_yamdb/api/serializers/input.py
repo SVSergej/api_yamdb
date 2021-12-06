@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from .genre import GenreSerializer
 from .category import CategorySerializer
+from .genre import GenreSerializer
 
 
 class InputSerializer(serializers.Serializer):

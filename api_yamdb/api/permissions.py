@@ -7,14 +7,14 @@ class AdminOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         elif request.user.is_authenticated:
-            return request.user.role == 'admin'
+            return request.user.is_admin
         return False
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
         if request.user.is_authenticated:
-            return request.user.role == 'admin'
+            return request.user.is_admin
         return False
 
 
@@ -32,6 +32,9 @@ class ModeratorOrReadOnly(permissions.BasePermission):
 
         if request.method == 'POST':
             return request.user.is_authenticated
+
+        if request.method == 'DELETE':
+            return request.user.is_moderator
 
         return request.user.is_authenticated and (
             request.user == obj.author

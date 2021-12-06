@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 import jwt
-from datetime import datetime, timedelta
+from datetime import timedelta, timezone
 from django.conf import settings
 import uuid
 
@@ -47,11 +47,26 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    USER = 'user'
+    MODERATOR = 'moderator'
+    ADMIN = 'admin'
+    ROLE_CHOICES = (
+        (USER, 'user'),
+        (MODERATOR, 'moderator'),
+        (ADMIN, 'admin'),
+    )
+
     bio = models.TextField(
         'Биография',
         blank=True,
     )
-
+    role = models.CharField(
+        'Пользовательские роли',
+        blank=True,
+        max_length=3,
+        choices=ROLE_CHOICES,
+        default='user'
+    )
     username = models.CharField(db_index=True,
                                 max_length=255,
                                 unique=True)
@@ -69,7 +84,7 @@ class User(AbstractUser):
         пользователя, срок действия токена
         составляет 1 день от создания
         """
-        dt = datetime.now() + timedelta(days=1)
+        dt = timezone.now() + timedelta(days=1)
 
         token = jwt.encode({
             'id': self.pk,
@@ -81,23 +96,6 @@ class User(AbstractUser):
     @property
     def token(self):
         return self._generate_jwt_token()
-
-    USER = 'user'
-    MODERATOR = 'moderator'
-    ADMIN = 'admin'
-    ROLE_CHOICES = (
-        (USER, 'user'),
-        (MODERATOR, 'moderator'),
-        (ADMIN, 'admin'),
-    )
-
-    role = models.CharField(
-        'Пользовательские роли',
-        blank=True,
-        max_length=1,
-        choices=ROLE_CHOICES,
-        default='user'
-    )
 
     @property
     def is_admin(self):

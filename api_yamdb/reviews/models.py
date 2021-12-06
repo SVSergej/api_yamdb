@@ -1,9 +1,5 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.core.validators import (
-    MaxValueValidator,
-    MinValueValidator
-)
-
 from users.models import User
 
 
@@ -64,7 +60,7 @@ class Review(models.Model):
         User,
         on_delete=models.CASCADE,
         null=True,
-        related_name='автор',
+        related_name='author_review',
     )
     score = models.PositiveSmallIntegerField(
         blank=True,

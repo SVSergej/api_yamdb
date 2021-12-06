@@ -1,14 +1,11 @@
-from rest_framework import status
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
-
-
-from ..serializers.user import UserSerializer
-from ..permissions import AuthorOrAdmin
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from users.models import User
+
+from ..permissions import AuthorOrAdmin
+from ..serializers.user import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

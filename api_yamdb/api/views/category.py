@@ -1,9 +1,9 @@
 from rest_framework import filters, generics
 from rest_framework.pagination import LimitOffsetPagination
-
 from reviews.models import Category
-from ..serializers.category import CategorySerializer
+
 from ..permissions import AdminOrReadOnly
+from ..serializers.category import CategorySerializer
 
 
 class CategoryList(generics.ListCreateAPIView):

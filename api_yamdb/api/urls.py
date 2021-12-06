@@ -1,19 +1,11 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views.registation import RegistrationView
+from .views import (CategoryDetail, CategoryList, CommentViewSet, GenreViewSet,
+                    ReviewViewSet, TitleViewSet)
 from .views.customjwttoken import CustomJWTTokenView
+from .views.registation import RegistrationView
 from .views.user import UserViewSet
-
-from .views import (
-    GenreViewSet,
-    TitleViewSet,
-    ReviewViewSet,
-    CommentViewSet,
-    CategoryList,
-    CategoryDetail
-)
-
 
 router_v1 = DefaultRouter()
 
