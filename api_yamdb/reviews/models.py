@@ -1,9 +1,6 @@
-import datetime as dt
-
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 from users.models import User
 
@@ -32,37 +29,20 @@ class Genre(models.Model):
         return self.slug
 
 
-class Genre_Title(models.Model):
-    genre = models.ForeignKey(Genre,
-                              on_delete=models.CASCADE,
-                              verbose_name='genre')
-    title = models.ForeignKey("Title",
-                              on_delete=models.CASCADE,
-                              verbose_name='title')
-
-    def __str__(self):
-        return f'{self.genre} {self.title}'
-
-
-def my_year_validator(value):
-    if value > dt.datetime.now().year:
-        raise ValidationError(
-            _('%(value)s is not a correcrt year!'),
-            params={'value': value},
-        )
-
-
 class Title(models.Model):
     name = models.CharField(max_length=200, db_index=True,
                             verbose_name='title_name')
     year = models.PositiveSmallIntegerField(
-        validators=[my_year_validator],
-        verbose_name="Year"
+        validators=[
+            MaxValueValidator(
+                timezone.now().year,
+                'Вернитесь из будущего'
+            )
+        ]
     )
     description = models.CharField(max_length=200, verbose_name='description')
     genre = models.ManyToManyField(
         Genre,
-        through="Genre_Title",
         related_name='titles'
     )
     category = models.ForeignKey(
@@ -91,7 +71,7 @@ class Review(models.Model):
         User,
         on_delete=models.CASCADE,
         null=True,
-        related_name='author_review',
+        related_name='review',
     )
     score = models.PositiveSmallIntegerField(
         blank=True,

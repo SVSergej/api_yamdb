@@ -1,10 +1,10 @@
 import uuid
-from datetime import timedelta, timezone
 
 import jwt
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -64,7 +64,7 @@ class User(AbstractUser):
     role = models.CharField(
         'Пользовательские роли',
         blank=True,
-        max_length=3,
+        max_length=max(len(role[0]) for role in ROLE_CHOICES),
         choices=ROLE_CHOICES,
         default='user'
     )
@@ -85,7 +85,7 @@ class User(AbstractUser):
         пользователя, срок действия токена
         составляет 1 день от создания
         """
-        dt = timezone.now() + timedelta(days=1)
+        dt = timezone.now() + timezone(days=1)
 
         token = jwt.encode({
             'id': self.pk,
