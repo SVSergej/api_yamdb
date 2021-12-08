@@ -1,10 +1,12 @@
 from rest_framework import filters, status, viewsets, mixins
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
+
 from reviews.models import Category
 
 from ..permissions import AdminOrReadOnly
 from ..serializers.category import CategorySerializer
+
 
 class ViewsMixin(mixins.CreateModelMixin,
                  mixins.DestroyModelMixin,
