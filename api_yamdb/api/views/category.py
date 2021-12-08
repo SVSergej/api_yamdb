@@ -6,7 +6,10 @@ from reviews.models import Category
 from ..permissions import AdminOrReadOnly
 from ..serializers.category import CategorySerializer
 
-class ViewsMixin(mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class ViewsMixin(mixins.CreateModelMixin,
+                 mixins.DestroyModelMixin,
+                 mixins.ListModelMixin,
+                 viewsets.GenericViewSet):
     pagination_class = LimitOffsetPagination
     permission_classes = (AdminOrReadOnly,)
     filter_backends = (filters.SearchFilter,)
