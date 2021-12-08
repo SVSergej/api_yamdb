@@ -3,7 +3,6 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
 from reviews.models import Category
-
 from ..permissions import AdminOrReadOnly
 from ..serializers.category import CategorySerializer
 
