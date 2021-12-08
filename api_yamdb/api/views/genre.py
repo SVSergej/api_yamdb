@@ -6,5 +6,5 @@ from .category import ViewsMixin
 
 
 class GenreViewSet(ViewsMixin, viewsets.ModelViewSet):
-    queryset = Genre.objects.all()  
+    queryset = Genre.objects.all()
     serializer_class = GenreSerializer
