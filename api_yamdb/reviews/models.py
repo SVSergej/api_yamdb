@@ -32,14 +32,7 @@ class Genre(models.Model):
 class Title(models.Model):
     name = models.CharField(max_length=200, db_index=True,
                             verbose_name='title_name')
-    year = models.PositiveSmallIntegerField(
-        validators=[
-            MaxValueValidator(
-                timezone.now().year,
-                'Вернитесь из будущего'
-            )
-        ]
-    )
+    year = models.PositiveSmallIntegerField()
     description = models.CharField(max_length=200, verbose_name='description')
     genre = models.ManyToManyField(
         Genre,
