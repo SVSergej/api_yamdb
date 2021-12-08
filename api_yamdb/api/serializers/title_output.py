@@ -27,4 +27,3 @@ class TitleOutputSerializer(serializers.ModelSerializer):
             raise ValidationError(
                 _('%(value)s is not a correcrt year!'),
                 params={'value': value},)
-
