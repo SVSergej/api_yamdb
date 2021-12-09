@@ -3,7 +3,6 @@ from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
 from reviews.models import Comment, Review
-
 from ..permissions import ModeratorOrReadOnly
 from ..serializers.comment import CommentSerializer
 

@@ -4,7 +4,6 @@ from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
 from reviews.models import Title
-
 from ..filters import TitleFilter
 from ..permissions import AdminOrReadOnly
 from ..serializers import TitleInputSerializer, TitleOutputSerializer
