@@ -1,10 +1,10 @@
 from .category import CategorySerializer
 from .comment import CommentSerializer
 from .genre import GenreSerializer
-from .title_input import TitleInputSerializer
-from .title_output import TitleOutputSerializer
 from .registration import RegistrationSerializer
 from .review import ReviewSerializer
+from .title_input import TitleInputSerializer
+from .title_output import TitleOutputSerializer
 from .token import TokenSerializer
 from .user import UserSerializer
 
