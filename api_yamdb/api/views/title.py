@@ -7,7 +7,7 @@ from reviews.models import Title
 
 from ..filters import TitleFilter
 from ..permissions import AdminOrReadOnly
-from ..serializers import (TitleInputSerializer, TitleOutputSerializer)
+from ..serializers import TitleInputSerializer, TitleOutputSerializer
 
 
 class TitleViewSet(viewsets.ModelViewSet):

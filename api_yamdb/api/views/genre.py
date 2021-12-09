@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from reviews.models import Genre
 
 from ..serializers.genre import GenreSerializer
+
 from .category import ViewsMixin
 
 
